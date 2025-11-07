@@ -101,7 +101,7 @@ logger.info(f"Version of the model that will be deployed: {entity_version_latest
 logger.info("Checking that the endpoint is not busy")
 serving.wait_until_ready()
 
-try
+try:
     serving.deploy_or_update_serving_endpoint(
         version=entity_version_latest_ready,
         environment_vars={
