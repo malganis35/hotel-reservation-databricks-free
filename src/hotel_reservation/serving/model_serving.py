@@ -16,6 +16,7 @@ from databricks.sdk.errors import ResourceConflict, ResourceDoesNotExist
 from databricks.sdk.service.serving import (
     AiGatewayConfig,
     AiGatewayInferenceTableConfig,
+    AiGatewayUsageTrackingConfig,
     EndpointCoreConfigInput,
     ServedEntityInput,
 )
@@ -188,6 +189,7 @@ class ModelServing:
         scale_to_zero: bool = True,
         environment_vars: dict | None = None,
         enable_inference_tables: bool = False,
+        enable_usage_tracking: bool = False,
         max_retries: int = 5,
         retry_interval: int = 20,
     ) -> None:
@@ -203,6 +205,7 @@ class ModelServing:
             scale_to_zero (bool, optional): Whether to scale endpoint to 0 when idle. Defaults to `True`.
             environment_vars (dict, optional): Environment variables to inject into the serving environment. Defaults to `None`.
             enable_inference_tables (boolean, optional): Enable Inferance Table in AI Gateway. Defaults to `False`.
+            enable_usage_tracking (boolean, optional): Enable Monitoring System Table in AI Gateway. Defaults to `False`.
             max_retries (int, optional): Maximum number of retry attempts on conflict. Defaults to `5`.
             retry_interval (int, optional): Wait time in seconds between retries. Defaults to `20`.
 
@@ -223,21 +226,33 @@ class ModelServing:
             )
         ]
 
-        # Optional AI Gateway inference table configuration
+        # Optional AI Gateway inference table / usage monitoring configuration
         ai_gateway_cfg = None
-        if enable_inference_tables:
-            if not (self.catalog_name and self.schema_name):
-                raise ValueError("To enable inference tables, both catalog_name and schema_name must be provided.")
-            ai_gateway_cfg = AiGatewayConfig(
-                inference_table_config=AiGatewayInferenceTableConfig(
+
+        if enable_inference_tables or enable_usage_tracking:
+            inference_cfg = None
+            usage_cfg = None
+
+            if enable_inference_tables:
+                if not (self.catalog_name and self.schema_name):
+                    raise ValueError("To enable inference tables, both catalog_name and schema_name must be provided.")
+                inference_cfg = AiGatewayInferenceTableConfig(
                     enabled=True,
                     catalog_name=self.catalog_name,
                     schema_name=self.schema_name,
                     table_name_prefix=self.monitoring_table,
                 )
-            )
-            logger.info(
-                f"🧠 Enabling AI Gateway inference tables: {self.catalog_name}.{self.schema_name}.{self.monitoring_table}_*"
+                logger.info(
+                    f"🧠 Inference tables enabled: {self.catalog_name}.{self.schema_name}.{self.monitoring_table}_*"
+                )
+
+            if enable_usage_tracking:
+                usage_cfg = AiGatewayUsageTrackingConfig(enabled=True)
+                logger.info("📊 Usage tracking enabled for AI Gateway")
+
+            ai_gateway_cfg = AiGatewayConfig(
+                inference_table_config=inference_cfg,
+                usage_tracking_config=usage_cfg,
             )
 
         # Create new endpoint
