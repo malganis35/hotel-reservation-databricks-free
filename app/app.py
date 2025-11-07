@@ -15,7 +15,7 @@ from loguru import logger
 from requests.auth import HTTPBasicAuth
 
 # --- USER CONFIG ---
-serving_endpoint = "https://dbc-f122dc18-1b68.cloud.databricks.com/serving-endpoints/hotel-reservation-basic-model-serving-db/invocations"
+serving_endpoint = "https://dbc-c36d09ec-dbbe.cloud.databricks.com/serving-endpoints/hotel-reservation-basic-model-serving-db/invocations"
 
 # --- FUNCTIONS ---
 
