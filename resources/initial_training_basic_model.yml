@@ -8,11 +8,11 @@ resources:
       name: ${bundle.name}-initial-training
       # Ce job ne doit pas avoir de schedule → il sera déclenché manuellement
       tags:
-        project_name: "hotel-reservation-caotrido"
+        project_name: "hotel-reservation-predictions"
         job_type: "initial_training"
         environment: "${var.env}"
         model_name: "basic_hotel_reservation_model"
-        finops_cost_center: "mlops-cohort4"
+        finops_cost_center: "operation"
         purpose: "ml-training"
 
       environments:
