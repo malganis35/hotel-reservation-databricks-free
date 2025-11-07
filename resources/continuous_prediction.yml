@@ -20,7 +20,7 @@ resources:
         model_name: "basic_hotel_reservation_model"
         finops_cost_center: "operation"
         purpose: "batch-prediction"
-      
+
       environments:
         - environment_key: default
           spec:

@@ -124,7 +124,7 @@ except Exception as e:
             enable_inference_tables=True,
         )
     except Exception as e:
-        logger.error(f"Second attempt also failed: {e2}. Not enable inference tables.")
+        logger.error(f"Second attempt also failed: {e}. Not enable inference tables.")
         serving.deploy_or_update_serving_endpoint(
             version=entity_version_latest_ready,
             enable_inference_tables=False,

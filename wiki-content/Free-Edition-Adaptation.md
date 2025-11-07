@@ -121,7 +121,7 @@ resources:
 
     initial_training:
         name: ${bundle.name}-initial-training
-        
+
         environments:
             - environment_key: default
             spec:
@@ -142,7 +142,7 @@ resources:
 
     initial_training:
         name: ${bundle.name}-initial-training
-        
+
         environments:
             - environment_key: default
             spec:
@@ -164,7 +164,7 @@ resources:
 
     initial_training:
         name: ${bundle.name}-initial-training
-        
+
         environments:
             - environment_key: default
             spec:
@@ -193,7 +193,7 @@ resources:
 
     initial_training:
         name: ${bundle.name}-initial-training
-        
+
         environments:
             - environment_key: default
             spec:
