@@ -156,6 +156,31 @@ resources:
                 python_file: "../scripts/00.process_initial_data.py"
 ```
 
+Careful, when you have a conditional_task in a task, do not add `environment_key: default`
+
+```yml
+resources:
+  jobs:
+
+    initial_training:
+        name: ${bundle.name}-initial-training
+        
+        environments:
+            - environment_key: default
+            spec:
+                environment_version: "3"
+                dependencies:
+                - ../dist/*.whl
+        tasks:
+        - task_key: post_commit_status_required
+          condition_task:
+            op: "EQUAL_TO"
+            left: "${var.is_test}"
+            right: "1"
+          depends_on:
+            - task_key: "deploy_model"
+```
+
 4. Delete `libraries` section in resources/jobs/tasks
 
 In the premium edition, we add the library section to define the depedency of the run such as the .whl for example of the package.
