@@ -116,11 +116,18 @@ try:
         enable_inference_tables=True,
     )
 except Exception as e:
-    logger.warning(f"Issue linked to {e}")
-    serving.deploy_or_update_serving_endpoint(
-        version=entity_version_latest_ready,
-        enable_inference_tables=True,
-    )
+    try:
+        logger.warning(f"Error in deploying. Backing to simple deployment without secrets. Issue linked to: Issue linked to {e}")
+        serving.deploy_or_update_serving_endpoint(
+            version=entity_version_latest_ready,
+            enable_inference_tables=True,
+        )
+    except Exception as e:
+        logger.error(f"Deployment failed. Backing to deployment without inference tables {e}")
+        serving.deploy_or_update_serving_endpoint(
+            version=entity_version_latest_ready,
+            enable_inference_tables=False,
+        )
 
 logger.info("Checking when the endpoint is ready")
 serving.wait_until_ready()
