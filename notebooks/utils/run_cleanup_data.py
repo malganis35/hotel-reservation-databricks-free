@@ -1,6 +1,6 @@
 # run the script
-# On one environment: uv run scripts/run_cleanup_data.py --env dev --env-file .env --config project_config.yml
-# On all environment: uv run scripts/run_cleanup_data.py --env all --env-file .env --config project_config.yml
+# On one environment: uv run notebooks/utils/run_cleanup_data.py --env dev --env-file .env --config project_config.yml
+# On all environment: uv run notebooks/utils/run_cleanup_data.py --env all --env-file .env --config project_config.yml
 import argparse
 
 from databricks.sdk import WorkspaceClient
