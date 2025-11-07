@@ -110,6 +110,7 @@ try:
             "region_name": "eu-west-1",
         },
         enable_inference_tables=True,
+        enable_usage_tracking=True,
     )
 except Exception as e:
     try:
@@ -117,13 +118,18 @@ except Exception as e:
         serving.deploy_or_update_serving_endpoint(
             version=entity_version_latest_ready,
             enable_inference_tables=True,
+            enable_usage_tracking=True,
         )
     except Exception as e2:
         logger.error(f"Second attempt also failed: {e2}. Not enable inference tables.")
         serving.deploy_or_update_serving_endpoint(
             version=entity_version_latest_ready,
             enable_inference_tables=False,
+            enable_usage_tracking=True,
         )
 
 logger.info("Checking when the endpoint is ready")
-serving.wait_until_ready()
+try:
+    serving.wait_until_ready()
+except Exception as e:
+    logger.error(f"Endpoint did not become ready after multiple retries. It might take more time: {e}")
