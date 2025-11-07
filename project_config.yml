@@ -1,6 +1,6 @@
 prd:
   catalog_name: mlops_prd
-  schema_name: caotrido
+  schema_name: hotel_operations
   volume_name: data
   raw_data_file: "Hotel_Reservations.csv"
   train_table: hotel_reservations_train_set
@@ -10,7 +10,7 @@ prd:
   batch_inference_table: continuous_reservation
 acc:
   catalog_name: mlops_acc
-  schema_name: caotrido
+  schema_name: hotel_operations
   volume_name: data
   raw_data_file: "Hotel_Reservations.csv"
   train_table: hotel_reservations_train_set
@@ -20,7 +20,7 @@ acc:
   batch_inference_table: continuous_reservation
 dev:
   catalog_name: mlops_dev
-  schema_name: caotrido
+  schema_name: hotel_operations
   volume_name: data
   raw_data_file: "Hotel_Reservations.csv"
   train_table: hotel_reservations_train_set
