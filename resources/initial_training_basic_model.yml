@@ -14,22 +14,17 @@ resources:
         model_name: "basic_hotel_reservation_model"
         finops_cost_center: "mlops-cohort4"
         purpose: "ml-training"
-      job_clusters:
-        - job_cluster_key: "hotel-reservation-cluster"
-          new_cluster:
-            spark_version: "16.4.x-scala2.12"
-            data_security_mode: "SINGLE_USER"
-            node_type_id: "r3.xlarge"
-            driver_node_type_id: "r3.xlarge"
-            autoscale:
-              min_workers: 1
-              max_workers: 1
-            spark_env_vars:
-              "TOKEN_STATUS_CHECK": "{{secrets/mlops_course/git_token_status_check}}"
+
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "3"  # ou "2" selon la version
+            dependencies:
+              - ../dist/*.whl
 
       tasks:
         - task_key: "initial_processing"
-          existing_cluster_id: ${target.cluster_id} # "0925-180914-5nzxv7hw"
+          environment_key: default
           spark_python_task:
             python_file: "../scripts/00.process_initial_data.py"
             parameters:
@@ -39,12 +34,9 @@ resources:
               - "${var.env}"
               - "--write_mode"
               - "overwrite"
-          libraries:
-            - whl: ../dist/*.whl
 
         - task_key: "train_model"
-          # job_cluster_key: "house-price-cluster"
-          existing_cluster_id: ${target.cluster_id} # "0925-180914-5nzxv7hw"
+          environment_key: default
           depends_on:
             - task_key: "initial_processing"
           spark_python_task:
@@ -62,8 +54,6 @@ resources:
               - "${var.branch}"
               - "--is_test"
               - "${var.is_test}"
-          libraries:
-            - whl: ../dist/*.whl
         - task_key: model_updated
           condition_task:
             op: "EQUAL_TO"
@@ -72,11 +62,10 @@ resources:
           depends_on:
             - task_key: "train_model"
         - task_key: "deploy_model"
+          environment_key: default
           depends_on:
             - task_key: "model_updated"
               outcome: "true"
-          # job_cluster_key: "house-price-cluster"
-          existing_cluster_id: ${target.cluster_id} # "0925-180914-5nzxv7hw"
           spark_python_task:
             python_file: "../scripts/03.deploy_model_serving.py"
             parameters:
@@ -88,8 +77,6 @@ resources:
               - "${var.is_test}"
               - "--model_version"
               - "${var.model_version}"
-          libraries:
-            - whl: ../dist/*.whl
         - task_key: post_commit_status_required
           condition_task:
             op: "EQUAL_TO"
@@ -98,11 +85,10 @@ resources:
           depends_on:
             - task_key: "deploy_model"
         - task_key: "post_commit_status" #only for integration test
+          environment_key: default
           depends_on:
             - task_key: "post_commit_status_required"
               outcome: "true"
-          # job_cluster_key: "house-price-cluster"
-          existing_cluster_id: ${target.cluster_id} # "0925-180914-5nzxv7hw"
           spark_python_task:
             python_file: "../scripts/04.post_commit_status.py"
             parameters:
@@ -117,5 +103,3 @@ resources:
               - "${var.repo}"
               - "--org"
               - "${var.org}"
-          libraries:
-            - whl: ../dist/*.whl
