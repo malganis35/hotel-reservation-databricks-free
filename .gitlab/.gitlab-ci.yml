@@ -143,4 +143,3 @@ pages:
     paths:
       - public
   when: manual
-
