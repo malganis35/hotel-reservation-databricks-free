@@ -102,10 +102,10 @@ logger.info("Checking that the endpoint is not busy")
 serving.wait_until_ready()
 
 serving.deploy_or_update_serving_endpoint(
-            version=entity_version_latest_ready,
-            enable_inference_tables=False,
-            enable_usage_tracking=True,
-        )
+    version=entity_version_latest_ready,
+    enable_inference_tables=False,
+    enable_usage_tracking=True,
+)
 
 logger.info("Checking when the endpoint is ready")
 try:

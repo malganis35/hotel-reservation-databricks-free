@@ -292,7 +292,7 @@ class ModelServing:
                         )
                     else:
                         logger.warning(
-                            f"⚠️ AI Gateway configuration object exists but both inference and usage configs are None. Skipping update."
+                            "⚠️ AI Gateway configuration object exists but both inference and usage configs are None. Skipping update."
                         )
 
                 logger.success(f"✅ Endpoint '{self.endpoint_name}' updated with model version {entity_version}")

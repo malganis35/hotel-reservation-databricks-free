@@ -218,4 +218,3 @@ and this project uses [Conventional Commits](https://www.conventionalcommits.org
 - **commitizen**: delete skip ci when bumping version
 - remove and add to .gitignore .coveragec and devbox.lock
 - move ReadMe from projects to docs/
-

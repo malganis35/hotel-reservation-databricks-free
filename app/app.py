@@ -5,7 +5,6 @@ import time
 from typing import Any
 
 import pandas as pd
-import plotly.express as px
 import pretty_errors  # noqa: F401
 import requests
 import streamlit as st

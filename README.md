@@ -357,4 +357,3 @@ This repository was inspired from the course *Marvelous MLOps — End-to-end MLO
 
 - [Maria Vechtomova (@mvechtomova)](https://github.com/mvechtomova)
 - [Basak Tugce Eskili (basakeskili)](https://github.com/basakeskili)
-
