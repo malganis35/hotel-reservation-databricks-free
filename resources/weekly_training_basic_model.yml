@@ -11,7 +11,7 @@ resources:
       #     on_failure:
       #       - example@example.com
       schedule:
-        quartz_cron_expression: "0 0 6 ? * MON"
+        quartz_cron_expression: "0 0 5 ? * MON"
         timezone_id: "Europe/Paris"
         pause_status: ${var.schedule_pause_status}
       tags: # interesting to group project / ressources to track costs, etc.
