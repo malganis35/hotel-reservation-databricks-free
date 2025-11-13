@@ -10,7 +10,7 @@ resources:
       #     on_failure:
       #       - example@example.com
       schedule:
-        quartz_cron_expression: "0 0 * ? * *" # every hour
+        quartz_cron_expression: "0 0 0/3 ? * *" # every 3 hours
         timezone_id: "Europe/Paris"
         pause_status: ${var.schedule_pause_status}
       tags:
