@@ -278,11 +278,22 @@ class ModelServing:
 
                 # If inference tables are enabled, ensure AI Gateway config is applied
                 if ai_gateway_cfg:
-                    self.workspace.serving_endpoints.put_ai_gateway(
-                        name=self.endpoint_name,
-                        inference_table_config=ai_gateway_cfg.inference_table_config,
-                    )
-                    logger.success(f"🧩 AI Gateway inference tables enabled for endpoint '{self.endpoint_name}'")
+                    # Appliquer la configuration AI Gateway uniquement si au moins un des deux est défini
+                    if ai_gateway_cfg.inference_table_config or ai_gateway_cfg.usage_tracking_config:
+                        self.workspace.serving_endpoints.put_ai_gateway(
+                            name=self.endpoint_name,
+                            inference_table_config=ai_gateway_cfg.inference_table_config,
+                            usage_tracking_config=ai_gateway_cfg.usage_tracking_config,
+                        )
+                        logger.success(
+                            f"🧩 AI Gateway configuration applied for endpoint '{self.endpoint_name}' "
+                            f"(inference tables: {bool(ai_gateway_cfg.inference_table_config)}, "
+                            f"usage tracking: {bool(ai_gateway_cfg.usage_tracking_config)})"
+                        )
+                    else:
+                        logger.warning(
+                            f"⚠️ AI Gateway configuration object exists but both inference and usage configs are None. Skipping update."
+                        )
 
                 logger.success(f"✅ Endpoint '{self.endpoint_name}' updated with model version {entity_version}")
                 return

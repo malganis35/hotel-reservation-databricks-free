@@ -101,33 +101,11 @@ logger.info(f"Version of the model that will be deployed: {entity_version_latest
 logger.info("Checking that the endpoint is not busy")
 serving.wait_until_ready()
 
-try:
-    serving.deploy_or_update_serving_endpoint(
-        version=entity_version_latest_ready,
-        environment_vars={
-            "aws_access_key_id": "{{secrets/mlops/aws_access_key_id}}",
-            "aws_secret_access_key": "{{secrets/mlops/aws_access_key}}",
-            "region_name": "eu-west-1",
-        },
-        enable_inference_tables=True,
-        enable_usage_tracking=True,
-    )
-except Exception as e:
-    try:
-        logger.warning(f"Error in deploying. Backing to simple deployment without secrets. Issue linked to: {e}")
-        serving.deploy_or_update_serving_endpoint(
-            version=entity_version_latest_ready,
-            enable_inference_tables=True,
-            enable_usage_tracking=True,
-        )
-    except Exception as e2:
-        logger.error(f"Second attempt also failed: {e2}. Not enable inference tables.")
-        serving.deploy_or_update_serving_endpoint(
+serving.deploy_or_update_serving_endpoint(
             version=entity_version_latest_ready,
             enable_inference_tables=False,
             enable_usage_tracking=True,
         )
-
 
 logger.info("Checking when the endpoint is ready")
 try:
