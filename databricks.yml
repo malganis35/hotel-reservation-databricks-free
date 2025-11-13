@@ -51,7 +51,7 @@ targets:
       host: https://dbc-c36d09ec-dbbe.cloud.databricks.com
       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
     variables:
-      schedule_pause_status: PAUSED
+      schedule_pause_status: UNPAUSED
       is_test: 0
       env: dev
     artifacts:
