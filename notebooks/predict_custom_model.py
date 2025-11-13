@@ -1,6 +1,6 @@
 # COMMAND ----------
 
-# Generate a temporary token: databricks auth token --host https://dbc-f122dc18-1b68.cloud.databricks.com
+# Generate a temporary token: databricks auth token --host https://dbc-c36d09ec-dbbe.cloud.databricks.com
 
 # Configure tracking uri
 import argparse

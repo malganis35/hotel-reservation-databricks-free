@@ -23,7 +23,7 @@ variables:
     default: repo
   org:
     description: GitHub organization
-    default: end-to-end-mlops-databricks-3
+    default: caotrido
   branch:
     description: branch
     default: main
@@ -45,14 +45,13 @@ variables:
 
 targets:
   dev:
-    cluster_id: 1016-064447-gofvx8r8 #replace with your own!
     default: true
     mode: development
     workspace:
-      host: https://dbc-f122dc18-1b68.cloud.databricks.com
+      host: https://dbc-c36d09ec-dbbe.cloud.databricks.com
       root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.target}/${bundle.name}
     variables:
-      schedule_pause_status: PAUSED
+      schedule_pause_status: UNPAUSED
       is_test: 0
       env: dev
     artifacts:
@@ -66,7 +65,7 @@ targets:
     presets:
       name_prefix: 'test_'
     workspace:
-      host: https://dbc-f122dc18-1b68.cloud.databricks.com
+      host: https://dbc-c36d09ec-dbbe.cloud.databricks.com
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     variables:
       schedule_pause_status: PAUSED
@@ -74,11 +73,10 @@ targets:
       env: dev
 
   acc:
-    cluster_id: 1016-064447-gofvx8r8 #replace with your own!
     presets:
       name_prefix: 'acc_'
     workspace:
-      host: https://dbc-f122dc18-1b68.cloud.databricks.com
+      host: https://dbc-c36d09ec-dbbe.cloud.databricks.com
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     variables:
       schedule_pause_status: PAUSED
@@ -87,10 +85,9 @@ targets:
 
 
   prd:
-    cluster_id: 1016-064447-gofvx8r8 #replace with your own!
     mode: production
     workspace:
-      host: https://dbc-f122dc18-1b68.cloud.databricks.com
+      host: https://dbc-c36d09ec-dbbe.cloud.databricks.com
       root_path: /Shared/.bundle/${bundle.target}/${bundle.name}
     variables:
       schedule_pause_status: PAUSED # normally UNPAUSED

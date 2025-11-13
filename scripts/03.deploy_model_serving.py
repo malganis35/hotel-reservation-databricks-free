@@ -103,13 +103,12 @@ serving.wait_until_ready()
 
 serving.deploy_or_update_serving_endpoint(
     version=entity_version_latest_ready,
-    environment_vars={
-        "aws_access_key_id": "{{secrets/mlops/aws_access_key_id}}",
-        "aws_secret_access_key": "{{secrets/mlops/aws_access_key}}",
-        "region_name": "eu-west-1",
-    },
-    enable_inference_tables=True,
+    enable_inference_tables=False,
+    enable_usage_tracking=True,
 )
 
 logger.info("Checking when the endpoint is ready")
-serving.wait_until_ready()
+try:
+    serving.wait_until_ready()
+except Exception as e:
+    logger.error(f"Endpoint did not become ready after multiple retries. It might take more time: {e}")

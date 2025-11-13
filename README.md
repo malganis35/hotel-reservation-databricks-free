@@ -1,6 +1,5 @@
 # 🏨 Hotel Reservation — End-to-End MLOps with Databricks
 
-[![Course Badge](https://img.shields.io/badge/COURSE-MARVELOUS--MLOPS--COHORT4-003189?style=for-the-badge&logo=Databricks&logoColor=FF3621)](https://databricks.com)
 [![Platform Badge](https://img.shields.io/badge/PLATFORM-DATABRICKS-FF3621?style=for-the-badge&logo=databricks&logoColor=white)](https://databricks.com)
 [![Lang Badge](https://img.shields.io/badge/LANGUAGE-PYTHON_3.12-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](#)
 [![Infra Badge](https://img.shields.io/badge/ENV-DEVBOX_|_UV_|_TASKFILE-6d7cff?style=for-the-badge&logo=dev.to&logoColor=white)](#)
@@ -25,26 +24,34 @@
 
 ## 🧠 Project Overview
 
-An **end-to-end MLOps project** developed as part of the *Marvelous MLOps Databricks Course (Cohort 4)*.
-It automates the complete lifecycle of a **hotel reservation classification model**, from **data ingestion & preprocessing** to **model training, registration, deployment, and serving** — fully orchestrated on **Databricks**.
+An **end-to-end MLOps project** developed as part of the [Databricks Free Edition Hackathon](https://www.databricks.com/blog/databricks-free-edition-hackathon-show-world-whats-possible-data-and-ai), running from November 5 - November 14, 2025.
+It automates the complete lifecycle of a **hotel reservation classification model**, from **data ingestion & preprocessing** to **model training, registration, deployment, and serving** — fully orchestrated on **Databricks Free Edition**.
 
 This repository demonstrates:
 
 * **Reproducible ML pipelines** using **Databricks, MLflow**, and **LogisticRegression**
-* **Feature Store** and **Feature Lookup** for scalable feature management
 * **Automated Databricks job workflows** using **Databricks Asset Bundles**
 * **Multi-environment configuration** across **DEV / ACC / PRD**
 * **Environment management & automation** with **Devbox**, **UV**, and **Taskfile**
-* **CI/CD** using **GitHub Actions** and **GitLab CI** (builds, docs, tests)
+* **CI/CD** using **GitHub Actions** or **GitLab CI** (builds, docs, tests)
 * **Comprehensive testing** with **Pytest**, **Ruff**, and **pre-commit**
-* **Documentation & Wiki integration** via **Sphinx** and `wiki-content/`
+* **Documentation & Wiki integration** via **Sphinx**.
 
 ## 🧰 Technology Stack
 
 ### Core Components
 ![Python](https://img.shields.io/badge/python-3.12-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Databricks](https://img.shields.io/badge/Databricks-FF3621?style=for-the-badge&logo=databricks&logoColor=white)
+[![Streamlit Badge](https://img.shields.io/badge/STREAMLIT_APP-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](#)
+[![PowerBI Badge](https://img.shields.io/badge/POWER_BI-D8B511?style=for-the-badge&logo=powerbi&logoColor=white)](https://powerbi.microsoft.com)
+
+### Databricks Components
 ![MLflow](https://img.shields.io/badge/MLflow-0194E2?style=for-the-badge&logo=mlflow&logoColor=white)
+[![Bundle Badge](https://img.shields.io/badge/DATABRICKS_ASSET_BUNDLE-FF3621?style=for-the-badge&logo=databricks&logoColor=white)](#)
+[![Pipeline Badge](https://img.shields.io/badge/DATABRICKS_PIPELINE-FF3621?style=for-the-badge&logo=databricks&logoColor=white)](#)
+[![Serving Badge](https://img.shields.io/badge/MODEL_SERVING_ENDPOINT-FF3621?style=for-the-badge&logo=databricks&logoColor=white)](#)
+[![App Badge](https://img.shields.io/badge/DATABRICKS_APP-FF3621?style=for-the-badge&logo=databricks&logoColor=white)](#)
+
 
 ### Development Environment
 ![Devbox](https://img.shields.io/badge/Devbox-6d7cff?style=for-the-badge&logo=dev.to&logoColor=white)
@@ -209,20 +216,18 @@ task test
 │   └── functional/                # End-to-end tests (model serving and API)
 │
 ├── uv.lock                        # Locked dependency versions (managed by UV)
-├── version.txt                    # Current project version number
-│
-└── wiki-content/                  # Technical wiki synchronized with CI/CD
+└── version.txt                    # Current project version number
 ```
 
 ## 🚀 Key Features
 
 * **End-to-End ML Lifecycle:** Data upload → Feature Engineering → Training → Registry → Serving
-* **Databricks Feature Store Integration:** Feature tables and lookup functions for reusable features
 * **Asset Bundle Deployment:** Automated workflows defined in `databricks.yml`
 * **Environment-Aware Configuration:** Per-env catalog/schema setup (`dev`, `acc`, `prd`)
 * **Testing:** Full unit, integration, and functional coverage using Pytest
-* **Docs & Wiki:** Built automatically via CI from `docs/` and `wiki-content/`
+* **Docs:** Built automatically via CI from `docs/`
 * **Code Quality:** Pre-commit hooks, linting, and commit message enforcement via Commitizen
+* **Business Integration**: We integrate a Power BI Dashboard that uses the results of the model prediction to demonstrate the business impact of this project in the decision making.
 
 ## ⚙️ Databricks Asset Bundle Workflow
 
@@ -290,7 +295,7 @@ databricks bundle run deployment --target dev
 ```yaml
 dev:
   catalog_name: mlops_dev
-  schema_name: caotrido
+  schema_name: hotel_operation
   volume_name: data
   raw_data_file: "Hotel_Reservations.csv"
   train_table: hotel_reservations_train_set
@@ -343,10 +348,12 @@ Refer to the [CONTRIBUTING](CONTRIBUTING) file for full contribution guidelines.
 
 ## 📜 License & Credits
 
-Proprietary © 2025 — *Marvelous MLOps Course / Cao Tri Do*
-For **educational and internal use only**. See the [LICENCE](LICENCE) file for details.
-This repository is part of the *Marvelous MLOps — End-to-end MLOps with Databricks: https://maven.com/marvelousmlops/mlops-with-databricks*.
+Proprietary © 2025 — *Cao Tri Do*
+For **internal use only**. See the [LICENCE](LICENCE) file for details.
 
-**Course Mentor**:
+This repository was inspired from the course *Marvelous MLOps — End-to-end MLOps with Databricks: https://maven.com/marvelousmlops/mlops-with-databricks*.
+
+**I would like to deeply thanks my 2 Course Mentors**:
+
 - [Maria Vechtomova (@mvechtomova)](https://github.com/mvechtomova)
 - [Basak Tugce Eskili (basakeskili)](https://github.com/basakeskili)
