@@ -251,12 +251,13 @@ table FACT_HISTORY
 				let
 				    Source = Table.Combine({SRC_HISTORY_TRAIN, SRC_HISTORY_TEST}),
 				    #"Inserted Merged Column" = Table.AddColumn(Source, "CALC_DATE_ARRIVAL", each Text.Combine({"01/", Text.From([arrival_month], "fr-FR"), "/", Text.From([arrival_year], "fr-FR")}), type text),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Inserted Merged Column",{{"CALC_DATE_ARRIVAL", type date}}),
-				    #"Added Custom" = Table.AddColumn(#"Changed Type", "CALC_DATE_RESERVATION", each Date.AddDays( [CALC_DATE_ARRIVAL],-[lead_time])),
-				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"CALC_DATE_RESERVATION", type date}})
+				    #"Changed Type with Locale" = Table.TransformColumnTypes(#"Inserted Merged Column", {{"CALC_DATE_ARRIVAL", type date}}, "en-US"),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type with Locale", "CALC_DATE_RESERVATION", each Date.AddDays( [CALC_DATE_ARRIVAL],-[lead_time])),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom",{{"CALC_DATE_RESERVATION", type date}}, "en-US")
 				in
 				    #"Changed Type1"
 
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Table
+

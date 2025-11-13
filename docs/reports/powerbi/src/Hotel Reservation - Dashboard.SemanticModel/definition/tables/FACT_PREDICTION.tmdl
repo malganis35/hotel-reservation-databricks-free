@@ -221,9 +221,8 @@ table FACT_PREDICTION
 		queryGroup: DATA
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-f122dc18-1b68.cloud.databricks.com", "/sql/1.0/warehouses/711fa33d05cc334c", [Catalog = "mlops_dev", Database = "caotrido"]),
-				    continuous_reservation_caotrido_mlops_dev = Source{[Item="continuous_reservation",Schema="caotrido",Catalog="mlops_dev"]}[Data],
-				    #"Replaced Value" = Table.ReplaceValue(continuous_reservation_caotrido_mlops_dev,".",",",Replacer.ReplaceText,{"booking_status_proba_custom"}),
+				    Source = SRC_PREDICTION,
+				    #"Replaced Value" = Table.ReplaceValue(Source,".",",",Replacer.ReplaceText,{"booking_status_proba_custom"}),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Replaced Value",{{"booking_status_proba_custom", type number}}),
 				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "CALC_Good Prediction", each if [booking_status] = [booking_status_pred_custom] then 1 else 0),
 				    #"Added Custom" = Table.AddColumn(#"Added Conditional Column", "CALC_Prediction Proba", each 1-[booking_status_proba_custom]),
@@ -233,4 +232,5 @@ table FACT_PREDICTION
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Exception
+	annotation PBI_ResultType = Table
+
