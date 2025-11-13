@@ -139,3 +139,5 @@ try:
     serving.wait_until_ready()
 except Exception as e:
     logger.error(f"Endpoint did not become ready after multiple retries. It might take more time: {e}")
+
+# COMMAND ----------
