@@ -5,6 +5,59 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project uses [Conventional Commits](https://www.conventionalcommits.org/) with [Commitizen](https://github.com/commitizen/cz-cli).
 
+## v0.4.0 (2025-11-14)
+
+### Feat
+
+- **dab**: change weekly training to 5 am for basic model to avoid concurrency with custom model
+- **dab**: change cron job to every 3 hours for hackathon
+- **notebooks**: add command magic
+- **streamlit**: basic appfor inference tests
+- **streamlit**: add premium with inference table monitoring
+- **dab**: unpaused schedule for dev env
+- **powerbi**: change connection to free workspace and correct  date type
+- **model_serving**: add in scripts monitoring tables and try catch for long time in waiting for the serving
+- **model_serving**: add monitoring system table
+- add an initial and weekly training in databricks jobs
+- **taskfile**: add target run-process-new-data
+- **process_data**: add ability to overwrite/append/upsert data in Unity Catalog
+- **dab**: add post commit status to databricks.yml
+- **dab**: add deploy serving task in databricks.yml
+- **dab**: add train_and_register step
+- **dab**: initiate databricks bundle with step 1 to preprocess new data
+- **data_processor**: add synthetic data generator
+
+### Fix
+
+- correct deploy serving with usage tracking
+- correct python syntax on try catch that causes a bug
+- enhance error handling during model deployment with fallback options and remove inference table that is not present in free edition
+- correct path in run_cleanup_data.py
+- update schema names in project configuration from 'caotrido' to 'hotel_operations'
+- update Databricks host URLs across multiple files from free edition
+- **cd**: add  --force-lock due to failed cd previous
+- **bundle**: correct cluster id in prd
+- **cd**: correct contents permissions from read to write for tagging
+- **cd**: correct cd to main and acc and prd environment
+- **cd**: deploy on only acc + use AWS credentials
+- **cd**: correct cd to main and acc and prd environment
+- **cd**: deploy on only acc + use AWS credentials
+- **data_processor**: correct unit test errors
+- **data_processor**: correct save to catalog
+- **basic_model**: return latest_version when register_model
+- **model_serving**: improve wait_until_ready if endpoint does not exist, continue
+- **synthetic_data**: align data types in script for generating data
+- **synthetic_data**: align data types in script for generating data
+- **notebooks**: add branch for local execution in process_data
+- **pyproject**: correct librarie name to hotel_reservation* with * to include all submodules
+
+### Refactor
+
+- **dab**: refactor all yml for free edition
+- **dab**: refactor databricks.yml and initial training basic model with guideline for free edition
+- rename basic model script and module as basic_model_xxx
+- **taskfile**: rename run tasks for homogeneity
+
 ## v0.3.0 (2025-10-21)
 
 ### Feat
