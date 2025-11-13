@@ -351,9 +351,10 @@ Refer to the [CONTRIBUTING](CONTRIBUTING) file for full contribution guidelines.
 Proprietary © 2025 — *Cao Tri Do*
 For **internal use only**. See the [LICENCE](LICENCE) file for details.
 
-This repository was initiated thanks to the *Marvelous MLOps — End-to-end MLOps with Databricks: https://maven.com/marvelousmlops/mlops-with-databricks*.
+This repository was inspired from the course *Marvelous MLOps — End-to-end MLOps with Databricks: https://maven.com/marvelousmlops/mlops-with-databricks*.
 
 **I would like to deeply thanks my 2 Course Mentors**:
 
 - [Maria Vechtomova (@mvechtomova)](https://github.com/mvechtomova)
 - [Basak Tugce Eskili (basakeskili)](https://github.com/basakeskili)
+

@@ -74,3 +74,4 @@ cat_features:
   - type_of_meal_plan
 
 target: booking_status
+
